@@ -7,7 +7,7 @@ with open(r'model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 # Streamlit front-end
-st.title("Housing Price Prediction")
+st.title("Housing MODEL Prediction")
 
 # Create input fields
 square_footage = st.number_input("Enter square footage:")
