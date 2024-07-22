@@ -13,7 +13,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from transformers import AutoProcessor, AutoModelForCausalLM
 import pandas as pd
-
+import streamlit as st
 # Cargar el modelo y el procesador
 model = AutoModelForCausalLM.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
 processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
+st.title("Modelo 1")
