@@ -1,23 +1,19 @@
-import streamlit as st
-import pickle
+import cv2
+import torch
 import numpy as np
+import fitz  # PyMuPDF
+import os
+import uuid  # Para generar nombres únicos de carpeta
+import copy
+import random
+import json
+from PIL import Image, ImageDraw, ImageFont
+from fpdf import FPDF
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from transformers import AutoProcessor, AutoModelForCausalLM
+import pandas as pd
 
-# Load the model
-with open(r'model.pkl', 'rb') as file:
-    model = pickle.load(file)
-
-# Streamlit front-end
-st.title("Housing MODEL Prediction")
-
-# Create input fields
-square_footage = st.number_input("Enter square footage:")
-bedrooms = st.number_input("Enter number of bedrooms:")
-bathrooms = st.number_input("Enter number of bathrooms:")
-
-# Button to make prediction
-if st.button("Predict"):
-    input_features = np.array([[square_footage, bedrooms, bathrooms]])
-    prediction = model.predict(input_features)
-    st.write("Predicted Price:", prediction[0])
-
-# Additional features like charts, etc.
+# Cargar el modelo y el procesador
+model = AutoModelForCausalLM.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
+processor = AutoProcessor.from_pretrained("microsoft/Florence-2-large", trust_remote_code=True)
